@@ -1,33 +1,123 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Surprise!</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personality Video Recommender</title>
   <style>
-    html, body {
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
       margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow: hidden;
-      background-color: black;
+      padding: 20px;
+      text-align: center;
+      color: #fff;
+      overflow-x: hidden;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      margin: 40px auto;
+      max-width: 550px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      transform: scale(0.95);
+      animation: fadeIn 1s ease forwards;
+    }
+    h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      animation: slideDown 1s ease;
+    }
+    p {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    select {
+      padding: 12px;
+      border-radius: 12px;
+      border: none;
+      outline: none;
+      width: 100%;
+      font-size: 16px;
+      margin-top: 10px;
+      transition: transform 0.3s;
+    }
+    select:focus {
+      transform: scale(1.05);
+    }
+    button {
+      background: #ff6bcb;
+      color: #fff;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 18px;
+      margin-top: 20px;
+      box-shadow: 0 4px 15px rgba(255, 107, 203, 0.6);
+      transition: all 0.3s ease;
+    }
+    button:hover {
+      background: #ff3b9d;
+      transform: translateY(-3px);
     }
     iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      border: none;
-    }
+      margin-top: 20px;
+      border-radius: 16px;
+      width: 100%;
+      height: 300px;
+      animation: popUp 0.6s ease;
+    }/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes slideDown {
+  from { transform: translateY(-30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@keyframes popUp {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
   </style>
 </head>
 <body>
-  <!-- Rick Astley's video embedded via YouTube -->
-  <iframe
-    src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&controls=0&loop=1&playlist=dQw4w9WgXcQ"
-    allow="autoplay"
-    allowfullscreen>
-  </iframe>
-</body>
+  <div class="card">
+    <h1>🎥 Personality-Based YouTube Recommender</h1>
+    <p>Answer a quick question and we'll suggest a YouTube video for you!</p>
+    <select id="personality">
+      <option value="">-- Choose your vibe --</option>
+      <option value="relax">Relaxed & Chill</option>
+      <option value="funny">Funny & Energetic</option>
+      <option value="motivated">Motivated & Productive</option>
+      <option value="curious">Curious & Love Learning</option>
+    </select>
+    <br />
+    <button onclick="recommendVideo()">✨ Get Recommendation</button><div id="video"></div>
+
+  </div>  <script>
+    function recommendVideo() {
+      const choice = document.getElementById("personality").value;
+      const videoDiv = document.getElementById("video");
+      let videoUrl = "";
+
+      if (choice === "relax") {
+        videoUrl = "https://www.youtube.com/embed/2OEL4P1Rz04"; // Relaxing music
+      } else if (choice === "funny") {
+        videoUrl = "https://www.youtube.com/embed/tgbNymZ7vqY"; // Funny cat video
+      } else if (choice === "motivated") {
+        videoUrl = "https://www.youtube.com/embed/ZXsQAXx_ao0"; // Motivational speech
+      } else if (choice === "curious") {
+        videoUrl = "https://www.youtube.com/embed/5MgBikgcWnY"; // Educational TED talk
+      } else {
+        videoDiv.innerHTML = "<p style='margin-top:15px;'>Please select a personality type first ✨</p>";
+        return;
+      }
+
+      videoDiv.innerHTML = `<iframe src="${videoUrl}" frameborder="0" allowfullscreen></iframe>`;
+    }
+  </script></body>
 </html>
